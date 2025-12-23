@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as NavigationBar from 'expo-navigation-bar';
 import OnboardingScreen from './screens/OnboardingScreen';
 import MainNavigator from './navigation/MainNavigator';
 import { colors } from './constants/theme';
@@ -27,6 +28,8 @@ export default function App() {
       setIsOnboardingChecked(true);
     };
     loadOnboardingState();
+    NavigationBar.setBackgroundColorAsync('#222222');
+    NavigationBar.setButtonStyleAsync('light');
   }, []);
 
   return (
