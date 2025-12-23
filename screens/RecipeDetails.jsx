@@ -33,7 +33,11 @@ export default function RecipeDetails({ route, navigation }) {
   );
 
   const handleStartCooking = () => {
-    navigation.navigate('CookingSteps', { steps: recipe.steps, recipeName: recipe.name });
+    navigation.navigate('CookingSteps', {
+      steps: recipe.steps,
+      recipeName: recipe.name,
+      ingredients: recipe.ingredients,
+    });
   };
 
   const handleDelete = () => {

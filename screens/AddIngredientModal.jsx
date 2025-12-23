@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, StyleSheet, ScrollView } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { colors, spacing, borderRadius, fontSize, fontWeight } from '../constants/theme';
@@ -17,15 +17,28 @@ const QUANTITY_UNITS = [
   'pinch',
 ];
 
-export default function AddIngredientModal({ visible, onClose, onAdd }) {
+export default function AddIngredientModal({ visible, onClose, onAdd, onSubmit, initialIngredient }) {
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [unit, setUnit] = useState('piece');
   const [isUnitOpen, setIsUnitOpen] = useState(false);
 
-  const handleAdd = () => {
+  useEffect(() => {
+    if (visible) {
+      setName(initialIngredient?.name || '');
+      setQuantity(initialIngredient?.quantity || '');
+      setUnit(initialIngredient?.unit || 'piece');
+    }
+  }, [visible, initialIngredient]);
+
+  const handleSubmit = () => {
     if (name.trim() && quantity.trim()) {
-      onAdd({ name: name.trim(), quantity: quantity.trim(), unit });
+      const payload = { name: name.trim(), quantity: quantity.trim(), unit };
+      if (onSubmit) {
+        onSubmit(payload);
+      } else if (onAdd) {
+        onAdd(payload);
+      }
       setName('');
       setQuantity('');
       setUnit('piece');
@@ -98,8 +111,8 @@ export default function AddIngredientModal({ visible, onClose, onAdd }) {
             <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={onClose}>
               <Text style={styles.cancelButtonText}>Cancel</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.addButton]} onPress={handleAdd}>
-              <Text style={styles.addButtonText}>Add</Text>
+              <TouchableOpacity style={[styles.button, styles.addButton]} onPress={handleSubmit}>
+                <Text style={styles.addButtonText}>{initialIngredient ? 'Update' : 'Add'}</Text>
             </TouchableOpacity>
           </View>
         </View>

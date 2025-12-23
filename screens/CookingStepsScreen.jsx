@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { colors, spacing, borderRadius, fontSize, fontWeight } from '../constants/theme';
+import { pantryStorage } from '../utils/pantryStorage';
 
 export default function CookingStepsScreen({ route, navigation }) {
-  const { steps, recipeName } = route.params;
+  const { steps, recipeName, ingredients = [] } = route.params;
   const [currentStep, setCurrentStep] = useState(0);
 
   const handleNext = () => {
@@ -19,7 +20,8 @@ export default function CookingStepsScreen({ route, navigation }) {
     }
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
+    await pantryStorage.subtractIngredients(ingredients);
     navigation.goBack();
   };
 

@@ -1,6 +1,7 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -29,7 +30,7 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <StatusBar style="light" />
       {isOnboardingChecked && !hasCompletedOnboarding ? (
         <OnboardingScreen onGetStarted={handleGetStarted} />
@@ -38,7 +39,7 @@ export default function App() {
           <MainNavigator />
         </NavigationContainer>
       )}
-    </View>
+    </GestureHandlerRootView>
   );
 }
 
