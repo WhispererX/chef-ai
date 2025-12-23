@@ -19,7 +19,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#222222"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.whisperer.chefai"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -28,7 +29,9 @@
       "expo-font"
     ],
     "extra": {
-      "eas": {}
+      "eas": {
+        "projectId": "e73b1f5a-86fa-47c0-b921-a336ba7ac207"
+      }
     }
   }
 }
