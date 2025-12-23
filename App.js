@@ -1,22 +1,37 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import OnboardingScreen from './screens/OnboardingScreen';
 import MainNavigator from './navigation/MainNavigator';
 import { colors } from './constants/theme';
 
 export default function App() {
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false);
+  const [isOnboardingChecked, setIsOnboardingChecked] = useState(false);
 
-  const handleGetStarted = () => {
+  const handleGetStarted = async () => {
     setHasCompletedOnboarding(true);
+    await AsyncStorage.setItem('hasCompletedOnboarding', 'true');
   };
+
+  useEffect(() => {
+    const loadOnboardingState = async () => {
+      const stored = await AsyncStorage.getItem('hasCompletedOnboarding');
+      if (stored === 'true') {
+        setHasCompletedOnboarding(true);
+      }
+      setIsOnboardingChecked(true);
+    };
+    loadOnboardingState();
+  }, []);
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      {!hasCompletedOnboarding ? (
+      {isOnboardingChecked && !hasCompletedOnboarding ? (
         <OnboardingScreen onGetStarted={handleGetStarted} />
       ) : (
         <NavigationContainer>

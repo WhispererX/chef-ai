@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5 } from '@expo/vector-icons';
 import PantryScreen from '../screens/PantryScreen';
-import CookbookScreen from '../screens/CookbookScreen';
+import CookbookStack from './CookbookStack';
 import AssistantScreen from '../screens/AssistantScreen';
 import { colors } from '../constants/theme';
 
@@ -40,7 +40,7 @@ export default function MainNavigator() {
       />
       <Tab.Screen
         name="Cookbook"
-        component={CookbookScreen}
+        component={CookbookStack}
         options={{
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="book" size={size} color={color} />
