@@ -1,2 +1,0 @@
-- ai functionality to make a photo of the fridge and AI will determen which ingredients there are and add them to the pantry.
-- ai functionality to reference recipes, read pantry engredients, create & edit recipes, list recipes that can  be cooked using pantry ingredients.
